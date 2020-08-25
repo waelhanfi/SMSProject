@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+
+
+
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            } 
+
+
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <br></br><br></br><br></br>
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <h:outputLabel for="Nom" class="control-label col-sm-2">NOM</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Nom-id" value="#{userBeanEdit.nom}" class="form-control" />
+
+
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Contact_name" class="control-label col-sm-2">CONTACT_NAME</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Contact_name-id" value="#{userBeanEdit.contactName}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Contact_gsm" class="control-label col-sm-2">CONTACT_GSM</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Contact_gsm-id" value="#{userBeanEdit.contactGsm}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Login" class="control-label col-sm-2">LOGIN</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Login-id" value="#{userBeanEdit.login}" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel for="Pwd" class="control-label col-sm-2">PWD</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputSecret id="Pwd-id" value="#{userBeanEdit.pwd}" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{userBeanEdit.updateUserProfilDetails(userBeanEdit)}" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+
+        </h:form> 
+
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome  : #{login.login} 
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('a#faq').click(function () {
+                    $('div#hidden').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq1').click(function () {
+                    $('div#hiddenn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq2').click(function () {
+                    $('div#hiddennn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <h:form id="ProfilForm">
+
+
+            <p:carousel value="#{adminBean.userProfil()}" headerText="Welcome #{login.login}" var="user" itemStyle="height:200px;text-align:left" numVisible="1" easing="easeOutBounce" style="width:0%"  >
+
+
+
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="#" id="faq"><i class="fa fa-user"></i><span>My Account</span></a>
+                            <div id="hidden" style="display:none">
+                                <ol>
+                                    <li><a href="UserProfil.xhtml"><i class="fa fa-user"></i><span>My Profile</span></a></li>
+                                    <li><a onclick="PF('histDialog').show()"><i class="fa fa-exchange"></i><span>Historique Alimentation</span></a></li>
+                                    <li><a onclick="PF('histentetDialog').show()"><i class="fa fa-exchange"></i><span>Historique Entet</span></a></li>
+                                    <li><a href="#{adminBean.editProfilUser(user.idUtilisateur)}"><i class="fa fa-plus"></i><span>Update</span></a></li>
+                                    <li><a onclick="PF('addentetDialog').show()"><i class="fa fa-plus"></i><span>Add Entet</span></a></li>
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq1"><i class="fa fa-comments-o"></i><span>My Messages</span></a>
+                            <div id="hiddenn" style="display:none">
+                                <ol>
+                                    <li><a href="CreateMSGUser.xhtml"><i class="fa fa-pencil"></i><span>Add Messages</span></a></li>
+                                    <li><a onclick="PF('msgDialog').show()"><i class="fa fa-plus"></i><span>Display Messages</span></a></li>
+
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq2"><i class="fa fa-mobile"></i><span>GSM</span></a>
+                            <div id="hiddennn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('GSMDialog').show()"><i class="fa fa-pencil"></i><span>Add List GSM</span></a></li>
+                                </ol>
+                            </div>
+                        </li>
+                    </ul>
+                </div>   
+
+                <p:dialog id="histDetail" header="Historique Alimentation" widgetVar="histDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="900" height="350">
+                    <p:dataTable id="HistTable"  value="#{adminBean.HistoriqueList(user.idUtilisateur)}"  var="hist"    class="table table-striped table-hover table-bordered tableUpdated" >
+                        <p:column  >
+                            <f:facet name="header">SOLDE INITIAL</f:facet>
+                            <h:outputText value="#{hist.soldeInitial}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">SOLDE FINAL</f:facet>
+                            <h:outputText value="#{hist.soldeFinal}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">DATE ALIMENTATION</f:facet>
+                            <h:outputText value="#{hist.dateAlimentation}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+                <p:dialog id="histentetDetail" header="Historique Entet" widgetVar="histentetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="900" height="350">
+                    <p:dataTable id="HistEnteteTable"  value="#{adminBean.HistoriqueEntet(user.idUtilisateur)}"  var="entet"    class="table table-striped table-hover table-bordered tableUpdated" >
+
+                        <p:column  >
+                            <f:facet name="header">ENTETE INITIAL</f:facet>
+                            <h:outputText value="#{entet.enteteInitiale}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">ENTETE FINAL</f:facet>
+                            <h:outputText value="#{entet.enteteFinale}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">DATE ENTETE</f:facet>
+                            <h:outputText value="#{entet.dateEntete}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </p:carousel> 
+
+        </h:form>
+        <h:form> 
+
+            <p:dialog id="AddEntet" header="Add Entet" widgetVar="addentetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="250" height="200">
+                <h:inputTextarea id="enteteFinale-id" value="#{adminBean.enteteFinale}" cols="50" rows="5" class="form-control" validatorMessage="Address is required">
+                    <f:validateRequired/>
+                </h:inputTextarea>        
+                <br></br>
+                <h:commandButton value="Save" action="#{adminBean.saveUserEntet(adminBean)}" class="btn btn-primary" />              
+            </p:dialog>
+
+
+
+        </h:form>
+        <h:form>
+
+            <p:dialog id="AddListGSM" header="Add List GSM Name" widgetVar="GSMDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="350" height="250">
+
+
+                <h:inputText id="nomListe-id" value="#{adminBean.nomListe}" class="form-control" validatorMessage="Nom Liste is required">
+                    <f:validateRequired />
+                </h:inputText>
+
+                <br></br>
+                <h:commandButton value="Save" action="#{adminBean.saveUserGSM(adminBean)}" class="btn btn-primary" />              
+            </p:dialog>
+
+        </h:form>
+
+
+
+    </h:body>
+</html>

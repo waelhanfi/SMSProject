@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:tabMenu activeIndex="#{param.i}">
+            <p:menuitem value="List Admin" outcome="ListAdmin" icon="pi pi-star">
+                <f:param name="i" value="0" />
+            </p:menuitem>
+
+            <p:menuitem value="Alimentation" outcome="ListeSolde.xhtml" icon="pi pi-search">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+
+
+            <p:menuitem value="Create Admin" outcome="createAdmin.xhtml" icon="pi pi-search">
+                <f:param name="i" value="3" />
+            </p:menuitem>
+
+        </p:tabMenu>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    </h:body>
+</html>
+

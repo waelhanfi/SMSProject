@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            } 
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+
+            .top-aligned-columns td{
+                horizontal-align: top;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome  : #{login.login} 
+            </div>
+        </div>
+
+
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="ListUser.xhtml"><i class="fa fa-users"></i><span>User List</span></a></li>
+                <li><a href="ListSoldeUser.xhtml"><i class="fa fa-exchange"></i><span>Alimentation</span></a></li>
+                <li><a href="createUser.xhtml"><i class="fa fa-plus"></i><span>Create User</span></a></li>
+
+            </ul>
+        </div>
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-4"></h2>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <h:outputLabel for="Nom" class="control-label col-sm-2">NOM</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Nom-id" value="#{userBeanEdit.nom}" class="form-control" />
+
+
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Contact_name" class="control-label col-sm-2">CONTACT_NAME</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Contact_name-id" value="#{userBeanEdit.contactName}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Contact_gsm" class="control-label col-sm-2">CONTACT_GSM</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Contact_gsm-id" value="#{userBeanEdit.contactGsm}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="Login" class="control-label col-sm-2">LOGIN</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="Login-id" value="#{userBeanEdit.login}" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel for="Pwd" class="control-label col-sm-2">PWD</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputSecret id="Pwd-id" value="#{userBeanEdit.pwd}" class="form-control"/>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <h:outputLabel for="entete" class="control-label col-sm-4">OPTION:</h:outputLabel>
+                <br></br>
+
+                <h:panelGrid columns="2" styleClass="top-aligned-columns" cellpadding="5"  cellspacing="5">  
+
+                    <h:outputLabel for="AR">AR:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{userBeanEdit.ar}" itemLabel="AR"/>
+
+                    <h:outputLabel for="modifEntet">Modif Entet:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{userBeanEdit.modifEntet}" itemLabel="modifEntet"/>
+
+
+                    <h:outputLabel for="listParam" >List Param:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{userBeanEdit.listParam}" itemLabel="listParam"/>
+
+                    <h:outputLabel for="diffPlanifier" >Diff Planifier:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{userBeanEdit.diffPlanifier}" itemLabel="diffPlanifier"/>
+
+                </h:panelGrid>
+
+
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{userBeanEdit.updateUserDetails(userBeanEdit)}" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

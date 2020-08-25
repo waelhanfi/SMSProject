@@ -1,0 +1,598 @@
+
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />     
+        <title>JSF CRUD Example</title>
+
+
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+
+
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            }    
+
+            .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {
+                margin: 1px;
+                padding: 5px 0px 5px 0px; 
+            }
+            .ui-messages-info-icon, .ui-messages-warn-icon, .ui-messages-error-icon, .ui-messages-fatal-icon, .ui-message-info-icon, .ui-message-warn-icon, .ui-message-error-icon, .ui-message-fatal-icon {
+                background: none;	
+            }
+            .ui-messages-info-summary, .ui-messages-warn-summary, .ui-messages-error-summary, .ui-messages-fatal-summary, .ui-message-info-summary, .ui-message-warn-summary, .ui-message-error-summary, .ui-message-fatal-summary {
+                font-family: Verdana;
+                font-size: 11px;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+
+
+
+
+            .profile.card{
+                background-color: white;
+                width: 600px;
+                /*   min-height: 500px; */
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+            }
+
+            .profile.image{
+                width: 170px;
+                height: 170px;
+                object-fit: cover;
+                border-radius: 50%;
+                /*  Margin top should be no more than 85px  */
+                margin-top: -60px;
+                border: 10px solid rgba(154, 154, 154, 0.45);
+            }
+
+            .profile.name{
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-size: 20px;
+                margin-bottom: 10px;
+                color: #607d8b;
+            }
+
+            .profile.bio{
+                margin: 0;
+                margin-bottom: 10px;
+                color: #545454;
+            }
+
+            .profile.location svg{
+                width: 20px;
+                vertical-align: middle;
+            }
+            .profile.location{
+                margin: 0;
+                color: #545454;
+                font-size: 14px;
+            }
+            .profile.location path{
+                fill: rgba(154, 154, 154, 0.7);
+            }
+
+            .icons, .buttons, .stats{
+                display: flex;
+                width: 75%;
+                justify-content: space-evenly;
+                margin: 10px;
+            }
+
+            .stats{
+                text-align: center;
+                margin: 15px;
+            }
+
+            .stats .number{
+                font-size: 24px;
+                margin: 0;
+                font-weight: bold;
+                color: #545454;
+                /*   letter-spacing: 0.5px; */
+            }
+            .stats .title{
+                margin: 5px;
+                text-transform: uppercase;
+                font-size: 14px;
+                color: #545454;
+                /*   letter-spacing: 0.5px; */
+            }
+
+
+
+            .ui-carousel-header {
+                margin: 0px 1px;
+                height: 0px;
+                overflow: hidden;
+                padding: 7px 10px 8px;
+                display: none !important;
+                border: 0;
+
+            }
+
+
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <div class="header">
+            <a href="WelcomeUser.xhtml" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome  : #{login.login} 
+            </div>
+        </div>
+
+
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="ListUser.xhtml"><i class="fa fa-users"></i><span>User List</span></a></li>
+                <li><a href="ListSoldeUser.xhtml"><i class="fa fa-exchange"></i><span>Alimentation</span></a></li>
+                <li><a onclick="PF('createUserDialog').show()"><i class="fa fa-plus"></i><span>Create User</span></a></li>
+                <li> <h:form> <h:commandLink  action="#{login.logout()}"><i class="fa fa-sign-out"></i><span>Logout</span></h:commandLink> </h:form></li>
+
+
+            </ul>
+        </div>
+
+
+
+
+
+
+
+
+        <h:form id="UserForm" class="main">
+
+            <p:dataTable id="UserTable" binding="#{table}" value="#{adminBean.userList()}" filteredValue="#{adminBean.filteredAdminList}"
+                         widgetVar="adminWidget"  var="user" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all:&#160;&#160;&#160;"/>
+                        <p:inputText id="globalFilter"
+                                     onkeyup="PF('adminWidget').filter()"
+                                     style="width:150px; height: 25px" placeholder="Search text"/>
+                    </p:outputPanel>
+                </f:facet>
+
+
+
+
+
+                <p:column headerText="nom" filterBy="#{user.nom}" filterMatchMode="contains" >
+                    <f:facet name="header">NOM</f:facet>
+                    <h:outputText value="#{user.nom}"  />
+                </p:column>
+                <p:column headerText="contactName" filterBy="#{user.contactName}" filterMatchMode="contains">
+                    <f:facet name="header">CONTACT_NAME</f:facet>
+                    <h:outputText value="#{user.contactName}" />
+                </p:column>
+                <p:column headerText="contactGsm" filterBy="#{user.contactGsm}" filterMatchMode="contains">
+                    <f:facet name="header">CONTACT_GSM</f:facet>
+                    <h:outputText value="#{user.contactGsm}" />
+                </p:column>
+                <p:column headerText="dateCreation" filterBy="#{user.dateCreation}" filterMatchMode="contains">
+                    <f:facet name="header">DATE_CREATION</f:facet>
+                    <h:outputText value="#{user.dateCreation}" />
+                </p:column>
+
+                <p:column headerText="solde" filterBy="#{user.solde}" filterMatchMode="contains">
+                    <f:facet name="header">SOLDE</f:facet>
+                    <h:outputText value="#{user.solde}" />
+                </p:column>
+
+
+
+
+
+
+
+
+
+
+
+                <p:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton action="#{adminBean.editUser(user.idUtilisateur)}" value="Update" class="btn btn-primary" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Activation</f:facet>
+                    <h:commandButton action="#{adminBean.desactiveUserRecord(user.idUtilisateur)}" value="Deactivate" class="btn btn-danger" rendered="#{user.activated}"/>
+
+                    <h:commandButton action="#{adminBean.ActiveUserRecord(user.idUtilisateur)}" value="Activate" class="btn btn-success" rendered="#{!user.activated}"/>
+                </p:column>
+
+
+
+                <p:column >
+                    <f:facet name="header">Historique Alimentation</f:facet>
+                    <p:dialog id="histDetail" widgetVar="histDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                        <p:dataTable id="HistTable"  value="#{adminBean.HistoriqueList(user.idUtilisateur)}"  var="hist"   
+                                     style="width:1000px;" 
+                                     widgetVar="ListhistTaWidget"
+                                     rows="5"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     class="table table-striped table-hover table-bordered tableUpdated"
+                                     >
+
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Historique Alimentation &#160;&#160; " style="float:left"/>
+                                    <p:inputText id="globalFilter"
+                                                 onkeyup="PF('ListhistTaWidget').filter()"
+                                                 style="width:150px; height: 25px" placeholder="Search text"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column id="c1" filterBy="#{hist.soldeInitial}" filterMatchMode="contains"  styleClass="watermark1"  >
+                                <p:watermark for="@(.watermark1)" value="Solde Initial" />
+                                <h:outputText value="#{hist.soldeInitial}" />
+                            </p:column>
+
+                            <p:column id="c2" filterBy="#{hist.soldeFinal}" filterMatchMode="contains"  styleClass="watermark2"  >
+                                <p:watermark for="@(.watermark2)" value="Solde Final" />
+
+                                <h:outputText value="#{hist.soldeFinal}" />
+                            </p:column>
+
+                            <p:column id="c3" filterBy="#{hist.dateAlimentation}" filterMatchMode="contains"  styleClass="watermark3"  >
+                                <p:watermark for="@(.watermark3)" value="Solde Date Alimentation" />
+                                <h:outputText value="#{hist.dateAlimentation}" />
+                            </p:column>
+
+
+                        </p:dataTable>
+
+                    </p:dialog>
+                    <p:commandButton update="histDetail" oncomplete="PF('histDialog').show()"  class="btn btn-primary" title="Historique">
+                    </p:commandButton>       
+                </p:column>
+
+                <p:column >
+
+                    <f:facet name="header">Historique Entet</f:facet>
+                    <p:dialog id="histentetDetail"  widgetVar="histentetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="900" height="350">
+
+
+                        <p:dataTable id="HistEnteteTable"  value="#{adminBean.HistoriqueEntet(user.idUtilisateur)}"  var="entet"
+                                     style="width:1000px;" 
+                                     widgetVar="ListentetTaWidget"
+                                     rows="5"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     class="table table-striped table-hover table-bordered tableUpdated"
+                                     >
+
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Historique Entet &#160;&#160; " style="float:left"/>
+                                    <p:inputText id="globalFilter"
+                                                 onkeyup="PF('ListentetTaWidget').filter()"
+                                                 style="width:150px; height: 25px" placeholder="Search text"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column id="c1" filterBy="#{entet.enteteInitiale}" filterMatchMode="contains"  styleClass="watermark1"  >
+                                <p:watermark for="@(.watermark1)" value="Entet Initial" />
+
+                                <h:outputText value="#{entet.enteteInitiale}" />
+                            </p:column>
+                            <p:column id="c2" filterBy="#{entet.enteteFinale}" filterMatchMode="contains"  styleClass="watermark2"  >
+                                <p:watermark for="@(.watermark2)" value="Entet Finale" />
+
+                                <h:outputText value="#{entet.enteteFinale}" />
+                            </p:column>
+                            <p:column id="c3" filterBy="#{entet.dateEntete}" filterMatchMode="contains"  styleClass="watermark3"  >
+                                <p:watermark for="@(.watermark3)" value="Date Finale" />
+                                <h:outputText value="#{entet.dateEntete}" />
+                            </p:column>
+
+
+                        </p:dataTable>
+
+
+                    </p:dialog>
+                    <p:commandButton update="histentetDetail" oncomplete="PF('histentetDialog').show()"  disabled="#{empty adminBean.HistoriqueEntet(user.idUtilisateur)}" class="btn btn-primary" title="Historique">
+                    </p:commandButton>   
+
+                </p:column>
+
+                <p:column >
+                    <f:facet name="header">View</f:facet>
+
+
+                    <p:dialog id="Detail"  widgetVar="Dialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="600" height="450">
+
+                        <p:carousel id="DetailAdmin"  value="#{adminBean.UserByIDList(user.idUtilisateur)}" numVisible="1" var="userv"   >
+ <br></br><br></br><br></br><br></br>
+                                <div class="profile card">
+                                    <img class="profile image" src="video/user.png" alt="Profile"/>
+                                    <br></br>
+                                    <p class="profile name">&#160;&#160;#{userv.nom}</p>
+                                    <p class="profile bio"><i class="fa fa-user" aria-hidden="true"></i> &#160;#{user.contactName}</p> 
+                                    <p class="profile bio"> <i class="fa fa-phone" aria-hidden="true"></i> &#160;#{userv.contactName}</p> 
+                                    <p class="profile bio"><i class="fa fa-calendar" aria-hidden="true"></i> &#160; #{userv.dateCreation}</p> 
+                                    <div class="stats">
+                                        <div class="stat">
+                                            <p class="number">&#160;&#160;<h:outputText value="#{userv.solde}" /></p>
+                                            <p class="title">&#160;&#160;&#160;Solde</p>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                        
+
+
+
+
+                           
+                        </p:carousel>
+                    </p:dialog>
+                    <p:commandButton update="Detail"  oncomplete="PF('Dialog').show()"    class="btn btn-primary" title="View">
+                    </p:commandButton>       
+                </p:column>
+
+
+
+
+
+
+            </p:dataTable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </h:form>
+
+
+
+
+        <h:form id="ad-form">
+
+            <p:dialog id="createUser" widgetVar="createUserDialog"   modal="true"  closable="false" visible="#{dialogForm1.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false"  width="380" height="350">
+
+
+                <h:form  binding="#{dialogForm1}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Créer un utilisateur
+                            </f:facet>
+
+                            <h:outputLabel for="Nom">Nom :</h:outputLabel>
+                            <h:inputText id="Nom-id" value="#{adminBean.nom}" maxlength="30" class="form-control" validatorMessage="le nom doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_name" >Nom du Contact:</h:outputLabel>
+                            <h:inputText id="Contact_name-id" value="#{adminBean.contactName}" maxlength="30" class="form-control" validatorMessage="le Nom du Contact doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_gsm" >GSM du Contact:</h:outputLabel>
+                            <p:inputMask id="Contact_gsm-id" value="#{adminBean.contactGsm}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>    
+
+                            <h:outputLabel for="Login" >Login</h:outputLabel>
+                            <h:inputText id="Login-id" value="#{adminBean.login}" class="form-control"  maxlength="30"  validatorMessage="le Login doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Pwd" >Mot de Passe</h:outputLabel>
+                            <h:inputSecret id="Pwd-id" value="#{adminBean.pwd}" class="form-control" maxlength="30" validatorMessage="le Mots de Passe doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputSecret>
+
+                            <h:outputLabel for="Solde" >Solde</h:outputLabel>
+                            <p:inputNumber id="Solde-id" value="#{adminBean.solde}"  padControl="false" validatorMessage="le Solde  ne doit pas être vide">
+                                <f:validateRequired/>
+                            </p:inputNumber>
+
+
+                            <h:outputLabel for="entete" >ENTET</h:outputLabel>
+                            <h:inputText id="entete-id" value="#{adminBean.entete}" maxlength="11" class="form-control" validatorMessage="le entet doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4"  />
+                            </h:inputText>
+
+
+                            <h:outputLabel for="entete" >OPTION:</h:outputLabel>
+                            <h:outputLabel for="entete" ></h:outputLabel>
+
+
+                            <h:outputLabel for="AR">AR:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{adminBean.ar}" itemLabel="AR"/>
+
+                            <h:outputLabel for="modifEntet">Modif Entet:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{adminBean.modifEntet}" itemLabel="modifEntet"/>
+
+
+                            <h:outputLabel for="listParam" >List Param:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{adminBean.listParam}" itemLabel="listParam"/>
+
+                            <h:outputLabel for="diffPlanifier" >Diff Planifier:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{adminBean.diffPlanifier}" itemLabel="diffPlanifier"/>
+
+                            <h:outputLabel for="api" >API:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{adminBean.api}" itemLabel="api"/>
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveUserDetails(adminBean)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="ad-form" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+
+        <h:form id="ed-form">
+
+            <p:dialog id="editUser" widgetVar="editUserDialog" modal="true"  closable="false" visible="#{dialogForm2.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false"  width="380" height="350">
+
+
+                <h:form  binding="#{dialogForm2}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Modifier un utilisateur
+                            </f:facet>
+
+
+                            <h:outputLabel for="Nom">Nom :</h:outputLabel>
+                            <h:inputText id="Nom-id" value="#{userBeanEdit.nom}" maxlength="30" class="form-control" validatorMessage="le nom doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_name" >Nom du Contact:</h:outputLabel>
+                            <h:inputText id="Contact_name-id" value="#{userBeanEdit.contactName}" maxlength="30" class="form-control" validatorMessage="le Nom du Contact doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_gsm" >GSM du Contact:</h:outputLabel>
+                            <p:inputMask id="Contact_gsm-id" value="#{userBeanEdit.contactGsm}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>    
+
+                            <h:outputLabel for="Login" >Login</h:outputLabel>
+                            <h:inputText id="Login-id" value="#{userBeanEdit.login}" class="form-control"  maxlength="30"  validatorMessage="le Login doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Pwd" >Mot de Passe</h:outputLabel>
+                            <h:inputText id="Pwd-id" value="#{userBeanEdit.pwd}" class="form-control" maxlength="30" validatorMessage="le Mots de Passe doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Solde" >Solde</h:outputLabel>
+                            <p:inputNumber id="Solde-id" value="#{userBeanEdit.solde}" disabled="true" padControl="false" validatorMessage="le Solde  ne doit pas être vide">
+                                <f:validateRequired/>
+                            </p:inputNumber>
+
+
+                            <h:outputLabel for="entete" >ENTET</h:outputLabel>
+                            <h:inputText id="entete-id" value="#{userBeanEdit.entete}" maxlength="11" class="form-control" validatorMessage="le entet doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4"  />
+                            </h:inputText>
+
+
+                            <h:outputLabel for="entete" >OPTION:</h:outputLabel>
+                            <h:outputLabel for="entete" ></h:outputLabel>
+
+
+                            <h:outputLabel for="AR">AR:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{userBeanEdit.ar}" itemLabel="AR"/>
+
+                            <h:outputLabel for="modifEntet">Modif Entet:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{userBeanEdit.modifEntet}" itemLabel="modifEntet"/>
+
+
+                            <h:outputLabel for="listParam" >List Param:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{userBeanEdit.listParam}" itemLabel="listParam"/>
+
+                            <h:outputLabel for="diffPlanifier" >Diff Planifier:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{userBeanEdit.diffPlanifier}" itemLabel="diffPlanifier"/>
+
+                            <h:outputLabel for="api" >API:</h:outputLabel>
+                            <h:selectBooleanCheckbox value="#{userBeanEdit.api}" itemLabel="api"/>
+
+
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{userBeanEdit.updateUserDetails(userBeanEdit)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="ed-form" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+
+    </h:body>
+</html>

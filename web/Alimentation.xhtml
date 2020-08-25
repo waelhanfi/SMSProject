@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+
+
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+
+
+
+        <style type="text/css">
+            .updateBtnStyle {
+                width: 80px !important;         
+            }
+            
+            .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {
+                margin: 1px;
+                padding: 5px 0px 5px 0px; 
+            }
+            .ui-messages-info-icon, .ui-messages-warn-icon, .ui-messages-error-icon, .ui-messages-fatal-icon, .ui-message-info-icon, .ui-message-warn-icon, .ui-message-error-icon, .ui-message-fatal-icon {
+                background: none;	
+            }
+            .ui-messages-info-summary, .ui-messages-warn-summary, .ui-messages-error-summary, .ui-messages-fatal-summary, .ui-message-info-summary, .ui-message-warn-summary, .ui-message-error-summary, .ui-message-fatal-summary {
+                font-family: Verdana;
+                font-size: 11px;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome Top Admin : #{login.login} 
+            </div>
+        </div>
+
+
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="ListAdmin.xhtml"><i class="fa fa-users"></i><span>Admin List</span></a></li>
+                <li><a href="ListeSolde.xhtml"><i class="fa fa-exchange"></i><span>Alimentation</span></a></li>
+                <li><a href="createAdmin.xhtml"><i class="fa fa-plus"></i><span>Create Admin</span></a></li>
+
+            </ul>
+        </div>
+
+
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-4">Edit Solde</h2>
+            </div>
+            <hr/>
+
+
+
+            <div class="form-group">
+                <h:outputLabel for="Solde" class="control-label col-sm-2">Alimenter Solde</h:outputLabel>
+
+                <h:panelGrid id="grid5" columns="3" cellpadding="1">
+                    <p:inputNumber id="soldeFinal-id" value="#{adminBeanSolde.soldeFinal}"  padControl="false" validatorMessage="le Solde  ne doit pas être vide">
+                        <f:validateRequired/>
+                    </p:inputNumber>
+                    <p:message for="soldeFinal-id" /> </h:panelGrid>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{adminBeanSolde.updateSold(adminBeanSolde)}" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

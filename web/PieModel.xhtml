@@ -1,0 +1,1529 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions" 
+
+
+      >
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+
+
+
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            } 
+
+
+
+            .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {
+                margin: 1px;
+                padding: 5px 0px 5px 0px; 
+            }
+            .ui-messages-info-icon, .ui-messages-warn-icon, .ui-messages-error-icon, .ui-messages-fatal-icon, .ui-message-info-icon, .ui-message-warn-icon, .ui-message-error-icon, .ui-message-fatal-icon {
+                background: none;	
+            }
+            .ui-messages-info-summary, .ui-messages-warn-summary, .ui-messages-error-summary, .ui-messages-fatal-summary, .ui-message-info-summary, .ui-message-warn-summary, .ui-message-error-summary, .ui-message-fatal-summary {
+                font-family: Verdana;
+                font-size: 11px;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+            }
+
+
+            .ui-dialog {
+                width: auto !important;
+            }
+
+
+
+
+
+
+        </style>
+
+
+
+    </h:head>
+    <h:body>
+        <div class="header">
+            <a href="userProfilWelcome.xhtml" id="menu-action1">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome  : #{login.login} 
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('a#faq').click(function () {
+                    $('div#hidden').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq1').click(function () {
+                    $('div#hiddenn').toggle();
+                    return false;
+                });
+            });
+
+
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq2').click(function () {
+                    $('div#hiddennn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+        <script>
+            $(function () {
+                $('a#faq3').click(function () {
+                    $('div#hiddeennn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq5').click(function () {
+                    $('div#hiddeennnnn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+
+        <script>
+            $(function () {
+                $('a#faq4').click(function () {
+                    $('div#hiddeennnn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+        <h:form enctype="multipart/form-data" id="ProfilForm" class="main"  >
+
+
+            <p:carousel value="#{adminBean.userProfil()}"  var="user"  numVisible="1" easing="easeOutBounce" >
+
+
+              
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="#" id="faq"><i class="fa fa-user"></i><span>My Account</span></a>
+                            <div id="hidden" style="display:none">
+                                <ol>
+                                    <li><a href="UserProfil.xhtml"><i class="fa fa-user"></i><span>My Profile</span></a></li>
+                                    <li><a onclick="PF('histDialog').show()"><i class="fa fa-history"></i><span>Historique Alimentation</span></a></li>
+                                    <li><a onclick="PF('histentetDialog').show()" style="display:#{adminBean.ifmodifentet()};"><i class="fa fa-history"></i><span>Historique Entet</span></a></li>                           
+                                    <li><h:commandLink  action="#{adminBean.editProfilUser(user.idUtilisateur)}"><i class="fa fa-plus"></i><span>Update</span></h:commandLink></li>
+                                    <li style="display:#{adminBean.ifmodifentet()};"><a onclick="PF('addentetDialog').show()" ><i class="fa fa-plus"></i><span>Add Entet</span></a></li>
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq1"><i class="fa fa-comments-o"></i><span>My Messages</span></a>
+                            <div id="hiddenn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('GSMAddDialog').show()"><i class="fa fa-plus"></i><span>Add Messages</span></a></li>
+                                    <li><a onclick="PF('msgDialog').show()"><i class="fa fa-comment"></i><span>Display Messages</span></a></li>
+
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq2"><i class="fa fa-mobile"></i><span>GSM</span></a>
+                            <div id="hiddennn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('GSMDialog').show()"><i class="fa fa-plus"></i><span>Add List GSM</span></a></li>
+                                    <li><a onclick="PF('listDialog').show()"><i class="fa fa-th-list"></i><span>List GSM</span></a></li>
+
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq3"><i class="fa fa-building"></i><span>Compagne</span></a>
+                            <div id="hiddeennn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('CompagneDialog').show()"><i class="fa fa-check-square-o"></i><span>Compagne Instantané</span></a></li>
+                                    <li style="display:#{adminBean.ifdiffPlanifier()};"><a onclick="PF('CompagnePlaDialog').show()"   ><i class="fa fa-calendar"></i><span>Compagne planifié</span></a></li>
+                                    <li><a onclick="PF('diffDialog').show()"><i class="fa fa-history"></i><span>Historique Compagne</span></a></li>
+
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a onclick="PF('BlackListDialog').show()"><i class="fa fa-th-large"></i><span>Black List</span></a></li>
+                        <li><a href="#" id="faq5"><i class="fa fa-pie-chart"></i><span>Rapport et Dashbord</span></a>
+                            <div id="hiddeennnnn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('listhistcompDialog').show()"><i class="fa fa-history"></i><span>Historique</span></a></li>
+
+                                    <li><a onclick="PF('ListhistcompPieDialog').show()"><i class="fa fa-pie-chart"></i><span>Dashbord</span></a></li>
+                                </ol>
+                            </div>
+                        </li> 
+
+                        <li style="display:#{adminBean.ifAPI()};"><a href="#" id="faq4" ><i class="fa fa-line-chart" ></i><span>API</span></a>
+                            <div id="hiddeennnn" style="display:none">
+                                <ol>
+                                    <li><a onclick="PF('listhistcompDialogAPI').show()"><i class="fa fa-history"></i><span>Historique</span></a></li>
+
+                                    <li><a onclick="PF('ListhistcompChartDialogAPI').show()"><i class="fa fa-line-chart"></i><span>Dashbord</span></a></li>
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li><h:commandLink  action="#{login.logout()}"><i class="fa fa-sign-out"></i><span>Logout</span></h:commandLink></li>
+
+                    </ul>
+                </div>
+
+
+                <p:dialog id="histDetail"  widgetVar="histDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                    <p:dataTable id="HistTable"  value="#{adminBean.HistoriqueList(user.idUtilisateur)}"  var="hist"  
+                                 style="width:450px;" 
+                                 widgetVar="HISTWidget"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 class="table table-striped table-hover table-bordered tableUpdated"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Historique Alimentation" style="float:left"/>
+                                <p:inputText id="globalFilter"
+                                             onkeyup="PF('HISTWidget').filter()"
+                                             style="width:150px; height: 25px" placeholder="Search text"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+
+
+
+                        <p:column id="c1" filterBy="#{hist.soldeInitial}" filterMatchMode="contains"  styleClass="watermark1"  >
+                            <p:watermark for="@(.watermark1)" value="Solde Initial" />
+
+
+                            <h:outputText value="#{hist.soldeInitial}" />
+                        </p:column>
+                        <p:column id="c2"  filterBy="#{hist.soldeFinal}" filterMatchMode="contains"  styleClass="watermark2" >
+                            <p:watermark for="@(.watermark2)" value="Solde Final" />
+                            <h:outputText value="#{hist.soldeFinal}" />
+                        </p:column>
+                        <p:column  id="c3"    filterBy="#{hist.dateAlimentation}" filterMatchMode="contains" styleClass="watermark3">
+                            <p:watermark for="@(.watermark3)"  value="Date Alimentation" />
+                            <h:outputText value="#{hist.dateAlimentation}" />
+                        </p:column>
+                    </p:dataTable> 
+                </p:dialog>
+
+
+                <p:dialog id="histentetDetail" widgetVar="histentetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                    <p:dataTable id="HistEnteteTable"  value="#{adminBean.HistoriqueEntet(user.idUtilisateur)}"  var="entet"    
+                                 style="width:450px;" 
+                                 widgetVar="ENTETWidget"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 class="table table-striped table-hover table-bordered tableUpdated"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Historique Entet" style="float:left"/>
+                                <p:inputText id="globalFilter"
+                                             onkeyup="PF('ENTETWidget').filter()"
+                                             style="width:150px; height: 25px" placeholder="Search text"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+
+
+
+                        <p:column  id="c1"    filterBy="#{entet.enteteInitiale}" filterMatchMode="contains" styleClass="watermark1">
+                            <p:watermark for="@(.watermark1)"  value="Entete Initiale" />
+
+                            <h:outputText value="#{entet.enteteInitiale}" />
+                        </p:column>
+
+                        <p:column  id="c2"    filterBy="#{entet.enteteFinale}" filterMatchMode="contains" styleClass="watermark2">
+                            <p:watermark for="@(.watermark2)"  value="Entete Finale" />                           
+                            <h:outputText value="#{entet.enteteFinale}" />
+                        </p:column>
+
+                        <p:column  id="c3"    filterBy="#{entet.dateEntete}" filterMatchMode="contains" styleClass="watermark3">
+                            <p:watermark for="@(.watermark3)"  value="Date Entete" />                           
+                            <h:outputText value="#{entet.dateEntete}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+
+
+                <p:dialog id="msgDetail"  widgetVar="msgDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                    <p:dataTable id="MsgEnteteTable"  value="#{adminBean.ListMessages(user.idUtilisateur)}"  var="msg"    
+                                 style="width:650px;" 
+                                 widgetVar="msgWidget"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 class="table table-striped table-hover table-bordered tableUpdated"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="List Messages" style="float:left"/>
+                                <p:inputText id="globalFilter"
+                                             onkeyup="PF('msgWidget').filter()"
+                                             style="width:150px; height: 25px" placeholder="Search text"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+
+
+
+                        <p:column  id="c1"    filterBy="#{msg.nomMessage}" filterMatchMode="contains" styleClass="watermark1">
+                            <p:watermark for="@(.watermark1)"  value="Nom Message" />
+                            <h:outputText id="nomMessage" value="#{msg.nomMessage}" />
+                        </p:column>
+
+                        <p:column  id="c2"  style="width:200px;"  filterBy="#{msg.message}" filterMatchMode="contains" styleClass="watermark2">
+                            <p:watermark for="@(.watermark2)"  value="Message" />
+
+                            <h:inputTextarea id="message" value="#{msg.message}"  readonly = "true" />
+                        </p:column>
+
+                        <p:column  id="c3"    filterBy="#{msg.dateCreationMessage}" filterMatchMode="contains" styleClass="watermark3">
+                            <p:watermark for="@(.watermark3)"  value="Date CreationMessage" />
+                            <h:outputText value="#{msg.dateCreationMessage}" />
+                        </p:column>
+
+                        <p:column  id="c4"    filterBy="#{msg.longeur}" filterMatchMode="contains" styleClass="watermark4">
+                            <p:watermark for="@(.watermark4)"  value="Longeur" />
+                            <h:outputText value="#{msg.longeur}" />
+                        </p:column>
+                        <p:column  id="c5"    filterBy="#{msg.nmbreSms}" filterMatchMode="contains" styleClass="watermark5">
+                            <p:watermark for="@(.watermark5)" value="Nmbre SMS" />
+                            <h:outputText value="#{msg.nmbreSms}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:dialog>
+
+
+
+                <p:dialog id="DiffCompDetail" widgetVar="diffDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                    <p:dataTable id="DiffCompDetailTable"  value="#{adminBean.DiffCompDisplay(user.idUtilisateur)}"  var="Diff"   
+                                 style="width:1000px;" 
+                                 widgetVar="DiffCompDetailWidget"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 class="table table-striped table-hover table-bordered tableUpdated"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Diffusion Compagne" style="float:left"/>
+                                <p:inputText id="globalFilter"
+                                             onkeyup="PF('DiffCompDetailWidget').filter()"
+                                             style="width:150px; height: 25px" placeholder="Search text"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+
+                        <p:column  id="c1"    filterBy="#{Diff.nomCompagneDiffusion}" filterMatchMode="contains" styleClass="watermark1">
+                            <p:watermark for="@(.watermark1)"  value="Nom Compagne Diffusion" />
+
+                            <h:outputText id="nomCompagne" value="#{Diff.nomCompagneDiffusion}" />
+                        </p:column>
+
+
+                        <p:column  id="c2"    filterBy="#{Diff.nomListe}" filterMatchMode="contains" styleClass="watermark2">
+                            <p:watermark for="@(.watermark2)"   value="Nom Liste" />
+                            <h:outputText id="id_nomListe" value="#{Diff.nomListe}" />
+                        </p:column>
+
+                        <p:column  id="c3"    filterBy="#{Diff.nomMessage}" filterMatchMode="contains" styleClass="watermark3">
+                            <p:watermark for="@(.watermark3)"   value="Nom Message" />
+                            <h:outputText id="id_nomMessage"  value="#{Diff.nomMessage}" />
+                        </p:column>
+
+                        <p:column  id="c4"    style="width:200px;" filterBy="#{Diff.message}" filterMatchMode="contains" styleClass="watermark4">
+                            <p:watermark for="@(.watermark4)"   value="Message" />
+                            <h:inputTextarea  id="id_message" value="#{Diff.message}" readonly = "true" />
+
+
+                        </p:column>
+
+                        <p:column  id="c5"    filterBy="#{Diff.dateDiffusionCreation}" filterMatchMode="contains" styleClass="watermark5">
+                            <p:watermark for="@(.watermark5)"   value="Date Diffusion Creation" />
+                            <h:outputText id="id_dateDiffusionCreation" value="#{Diff.dateDiffusionCreation}" />
+                        </p:column>
+
+                        <p:column  id="c6"    filterBy="#{Diff.dateEnvoie}" filterMatchMode="contains" styleClass="watermark6">
+                            <p:watermark for="@(.watermark6)"   value="Date Envoie" />
+                            <h:outputText id="id_dateEnvoie" value="#{Diff.dateEnvoie}" />
+                        </p:column>
+                        <p:column  id="c7"    filterBy="#{Diff.planifie}" filterMatchMode="contains" styleClass="watermark7">
+                            <p:watermark for="@(.watermark7)"   value="Date planifie" />
+                            <h:outputText id="id_planifie" value="#{Diff.planifie}" />
+                        </p:column>
+                        <p:column  id="c8"    filterBy="#{Diff.parametrable}" filterMatchMode="contains" styleClass="watermark8">
+                            <p:watermark for="@(.watermark8)"   value="Parametrable" />
+                            <h:outputText id="id_parametrable" value="#{Diff.parametrable}" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:dialog>
+
+
+
+                <h:form enctype="multipart/form-data">
+                    <p:dialog id="BlackListDetail"  widgetVar="BlackListDialog"  visible="#{dialogForm10.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+
+
+
+
+                        <p:dataTable id="BlackListDetailTable"  value="#{adminBean.BlackListisplay()}"  var="Black"  
+                                     style="width:620px;" 
+                                     widgetVar="BlackListDetailTableWidget"
+                                     rows="5"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     class="table table-striped table-hover table-bordered tableUpdated"
+                                     >
+
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Black List" style="float:left"/>
+                                    <p:inputText id="globalFilter"
+                                                 onkeyup="PF('BlackListDetailTableWidget').filter()"
+                                                 style="width:150px; height: 25px" placeholder="Search text"/>
+                                </p:outputPanel>
+
+                            </f:facet>
+
+                            <p:column id="c1" filterBy="#{Black.gsmblacklist}" filterMatchMode="contains"  styleClass="watermark1"  >
+                                <p:watermark for="@(.watermark1)" value="Gsm Black List" />
+
+                                <h:outputText id="gsmblacklist" value="#{Black.gsmblacklist}" />
+                            </p:column>  
+
+                            <p:column>
+                                <f:facet name="header">Update</f:facet>
+                                <h:commandButton update="BlackListDetail"  action="#{adminBean.editBlackList(Black.idblacklist)}" value="Update" class="btn btn-primary" />
+                            </p:column>
+
+                            <p:column>
+
+                                <f:facet name="header">Delete</f:facet>
+                                <h:commandButton update="BlackListDetail" action="#{adminBean.deleteBlackList(Black.idblacklist)}" value="Delete" class="btn btn-primary" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:form  binding="#{dialogForm10}">
+                            <p:messages id="messages"  closable="true" >
+                                <p:autoUpdate />
+                            </p:messages>
+
+                            <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                                <f:facet name="footer"> 
+                                    <object align="right" >
+                                        <p:panelGrid   columns="4" cellpadding="5">
+
+                                            <h:inputFile  value="#{adminBean.uploadedFile}" class="form-control"  />
+
+                                            <h:commandButton  update="BlackListDetail"  value="Import" action="#{adminBean.saveBKList()}" class="btn btn-primary" />  
+                                            <p:commandButton   oncomplete="PF('CreateBlackListDialog').show()"  class="btn btn-primary" title="Ajouter Manuellement"/>
+
+                                        </p:panelGrid>
+                                    </object>
+                                </f:facet>
+
+                            </p:panelGrid>
+
+                        </h:form>
+
+                    </p:dialog>
+                </h:form>
+                <center>
+                    <h:outputText value="Nom Compagne" style="color: black"/> 
+                    <h:outputText value="#{adminBean.nomCompagneDiffusion}" />
+
+                    <p:panel id="boundaries" style="width:750px;height:750px;">
+                        <p:pieChart model="#{adminBean.pieModel}" style="width: 100%; height: 500px;"/>
+                    </p:panel>
+                </center>
+
+            </p:carousel> 
+
+        </h:form>
+        <h:form id="entet-ed"> 
+            <p:dialog id="AddEntet" widgetVar="addentetDialog" closable="false" visible="#{dialogForm3.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="300" height="150">
+
+
+                <h:form  binding="#{dialogForm3}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Ajouter Entet
+                            </f:facet>
+
+                            <h:outputLabel for="entete" >ENTET</h:outputLabel>
+                            <p:inputText id="enteteFinale-id" value="#{adminBean.enteteFinale}"  maxlength="11" class="form-control" validatorMessage="le entet doit être de 4 caractères minimum">
+                                <p:keyFilter regEx="/[a-zA-ZÀ-ú\\s\\' ]+/"/>
+
+                                <f:validateLength minimum="4"  />
+                            </p:inputText>        
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Ajouter" action="#{adminBean.saveUserEntet(adminBean)}" class="btn btn-primary" />              
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="entet-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+
+            </p:dialog>
+
+
+
+        </h:form>
+        <h:form id="gsm-ed" enctype="multipart/form-data">
+            <p:dialog id="AddListGSM"  widgetVar="GSMDialog" closable="false" visible="#{dialogForm4.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="350" height="200">
+
+
+                <h:form  binding="#{dialogForm4}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Ajouter List GSM
+                            </f:facet>
+
+                            <h:outputLabel for="nomListe" >Nom Liste</h:outputLabel>
+
+                            <h:inputText id="nomListe-id" value="#{adminBean.nomListe}" class="form-control" validatorMessage="le nom Liste doit être de 3 caractères minimum">
+                                <f:validateLength minimum="3"  />
+                            </h:inputText>        
+
+
+                            <h:outputText value="File: "></h:outputText>
+                            <h:inputFile value="#{adminBean.uploadedFile}"  class="form-control"  />
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveUserGSM(adminBean)}" class="btn btn-primary" />              
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="gsm-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="msg-ed">
+
+            <p:dialog id="AddGSM" widgetVar="GSMAddDialog" closable="false" visible="#{dialogForm5.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="450" height="250">
+
+
+                <h:form  binding="#{dialogForm5}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Ajouter un message
+                            </f:facet>
+
+
+                            <h:outputLabel for="nomMessage" >NOM MESSAGE</h:outputLabel>
+                            <h:inputText id="nomMessage-id" value="#{adminBean.nomMessage}" class="form-control"  validatorMessage="le nom Message doit être de 3 caractères minimum">
+                                <f:validateLength minimum="3"  />
+                            </h:inputText>        
+
+                            <h:outputLabel for="message">MESSAGE</h:outputLabel>
+                            <h:inputTextarea id="message-id" value="#{adminBean.message}" cols="50" rows="5" class="form-control"  validatorMessage="le Message doit être de 5 caractères minimum">
+                                <f:validateLength minimum="5"  />
+                            </h:inputTextarea>
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveUserMSGDetails(adminBean)}"  class="btn btn-success btnWidth" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="msg-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+
+            </p:dialog>
+
+        </h:form>
+
+        <h:form>
+
+            <p:dialog id="errGSM" header="Sorry!" widgetVar="errGSMDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="500" height="40">
+
+                <p:staticMessage severity="error" summary="" detail="You don't have the AR option, Please Contact your Admin" />
+            </p:dialog>
+
+        </h:form>
+
+        <h:form id="Compagne-ed">
+
+            <p:dialog id="Compagne"  widgetVar="CompagneDialog" closable="false" visible="#{dialogForm6.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="350" height="250">
+
+
+                <h:form  binding="#{dialogForm6}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Ajouter Compagne Instantané
+                            </f:facet>
+
+                            <h:outputLabel for="nomCompagne" >COMPAGNE</h:outputLabel>
+                            <h:inputText id="nomCompagne" value="#{adminBean.nomCompagneDiffusion}" class="form-control"   validatorMessage="le nom Message doit être de 3 caractères minimum">
+                                <f:validateLength minimum="3"  />
+                            </h:inputText>        
+
+                            <h:outputLabel for="nomCompagne" >Nom List:&#160;&#160;</h:outputLabel>
+                            <p:selectOneMenu id="NLG" value="#{adminBean.nomListe}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{adminBean.getNomListGsm()}" var="c"
+                                               itemLabel="#{c.nomListe}" itemValue="#{c.nomListe}" />
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="nomCompagne" >Nom Message:&#160;&#160;</h:outputLabel>
+                            <p:selectOneMenu id="NLM" value="#{adminBean.nomMessage}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{adminBean.getListNomMessage()}" var="m"
+                                               itemLabel="#{m.nomMessage}" itemValue="#{m.nomMessage}" />
+                            </p:selectOneMenu>
+
+
+
+                            <h:outputLabel for="parametrable" value="Parametrable:" style="display:#{adminBean.ifParam()}" />
+                            <h:selectBooleanCheckbox value="#{adminBean.parametrable}" style="display:#{adminBean.ifParam()}" itemLabel="parametrable"/>
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveDiffComp(adminBean)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="Compagne-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+                </h:form>
+            </p:dialog>
+
+        </h:form>
+
+
+        <h:form id="Compagneplanifier-ed">
+
+            <p:dialog id="Compagneplanifier"  widgetVar="CompagnePlaDialog" closable="false" visible="#{dialogForm7.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+
+
+                <h:form  binding="#{dialogForm7}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Ajouter Compagne planifié
+                            </f:facet>
+
+
+
+                            <h:outputLabel for="nomCompagne" >COMPAGNE</h:outputLabel>
+                            <h:inputText id="nomCompagne-id" value="#{adminBean.nomCompagneDiffusion}" class="form-control"   validatorMessage="le nom Message doit être de 3 caractères minimum">
+                                <f:validateLength minimum="3"  />
+                            </h:inputText>        
+
+
+
+                            <h:outputLabel for="nomCompagne" >Nom List:&#160;&#160;</h:outputLabel>
+
+                            <p:selectOneMenu id="NLG" value="#{adminBean.nomListe}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{adminBean.getNomListGsm()}" var="c"
+                                               itemLabel="#{c.nomListe}" itemValue="#{c.nomListe}" />
+                            </p:selectOneMenu>
+
+
+                            <h:outputLabel for="nomCompagne" >Nom Message:&#160;&#160;</h:outputLabel>
+
+                            <p:selectOneMenu id="NLM" value="#{adminBean.nomMessage}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{adminBean.getListNomMessage()}" var="m"
+                                               itemLabel="#{m.nomMessage}" itemValue="#{m.nomMessage}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="datetime" value="Date Envoie:" />
+                            <p:calendar id="datetime" value="#{adminBean.date10}" pattern="MM/dd/yyyy HH:mm:ss" >
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </p:calendar>
+
+
+
+                            <h:outputLabel for="parametrable" value="Parametrable:" style="display:#{adminBean.ifParam()}" />
+                            <h:selectBooleanCheckbox value="#{adminBean.parametrable}" style="display:#{adminBean.ifParam()}" itemLabel="parametrable"/>
+
+
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveDiffCompPlan(adminBean)}" class="btn btn-primary updateBtnStyle"  />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="Compagneplanifier-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+                </h:form>
+
+
+            </p:dialog>
+
+
+        </h:form>
+
+        <h:form id="editBlackListDetail-ED">  
+            <p:dialog id="editBlackListDetail"  widgetVar="editBlackListDialog"
+
+                      closable="false" visible="#{dialogFormmdbk.submitted and facesContext.validationFailed}" 
+                      modal="true" showEffect="fade" hideEffect="fade" >
+
+
+
+                <h:form  binding="#{dialogFormmdbk}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Modifier un GSM
+                            </f:facet>
+
+                            <h:outputLabel for="gsm" >GSM </h:outputLabel>
+                            <p:inputMask id="gsmblacklist-id" value="#{BlackListEdit.gsmblacklist}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>   
+
+
+
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Update" action="#{BlackListEdit.updateBlackListDetails(BlackListEdit)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="editBlackListDetail-ED" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+
+            </p:dialog>
+        </h:form>
+
+        <h:form id="editDetailListGsmid-ed">  
+            <p:dialog id="editDetailListGsmid"  widgetVar="editDetailListGsmUpd" closable="false" visible="#{dialogForm9.submitted and facesContext.validationFailed}" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+                <h:form  binding="#{dialogForm9}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="4" cellpadding="5">
+
+                            <f:facet name="header">
+                                Modifier List GSM
+                            </f:facet>
+
+                            <h:outputLabel for="Nom" class="control-label col-sm-2">GSM</h:outputLabel>
+                            <h:inputText id="gsm-id" value="#{DetailsListGsmEdit.gsm}"  mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </h:inputText> 
+
+
+                            <p:panelGrid   style="display:#{adminBean.ifParam()};" columns="2" cellpadding="5" >
+
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY1</h:outputLabel>
+                                <h:inputText id="key1-id" value="#{DetailsListGsmEdit.key1}" class="form-control"   maxlength="30"  validatorMessage="Key1 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY2</h:outputLabel>
+                                <h:inputText id="key2-id" value="#{DetailsListGsmEdit.key2}" class="form-control"  maxlength="30"  validatorMessage="Key2 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY3</h:outputLabel>
+                                <h:inputText id="key3-id" value="#{DetailsListGsmEdit.key3}" class="form-control"  maxlength="30"  validatorMessage="Key3 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY4</h:outputLabel>
+                                <h:inputText id="key4-id" value="#{DetailsListGsmEdit.key4}" class="form-control"  maxlength="30"  validatorMessage="Key4 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY5</h:outputLabel>
+                                <h:inputText id="key5-id" value="#{DetailsListGsmEdit.key5}" class="form-control"  maxlength="30"  validatorMessage="Key5 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                                <h:outputLabel for="Nom" class="control-label col-sm-2">KEY6</h:outputLabel>
+                                <h:inputText id="key6-id" value="#{DetailsListGsmEdit.key6}" class="form-control"  maxlength="30"  validatorMessage="Key6 doit être de 4 caractères minimum">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+
+                            </p:panelGrid>
+
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Update" action="#{DetailsListGsmEdit.updateDetailsListGsm(DetailsListGsmEdit)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="editDetailListGsmid-ed" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+
+
+                </h:form>      
+
+            </p:dialog>
+        </h:form>
+        <h:form id="deleteBlackListDetail-ed">  
+            <p:dialog id="deleteBlackListDetail"  widgetVar="deleteBlackListDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="400" height="150">
+
+                <p:panelGrid  id="grid" columns="4" cellpadding="5">
+
+                    <f:facet name="header">
+                        Are you sure to delete this GSM ?
+                    </f:facet>
+
+
+
+                    <h:outputLabel id="gsmblacklist-id" value="#{BlackListEdit.gsmblacklist}" class="form-control" />
+
+
+
+
+                    <f:facet name="footer"> 
+                        <object align="right" >
+                            <h:commandButton value="Delete" action="#{BlackListEdit.deleteBlackListDetails(BlackListEdit)}" class="btn btn-primary updateBtnStyle" />
+                            &#160;&#160;
+                            <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                <p:ajax update="deleteBlackListDetail-ed" resetValues="true" />
+                            </h:commandButton>
+                        </object>
+                    </f:facet>
+
+                </p:panelGrid>
+
+            </p:dialog>
+        </h:form>
+
+        <h:form id="deletedeleteListGsm-ed">  
+            <p:dialog id="deletedeleteListGsm"  widgetVar="deletedeleteListGsmDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                <p:panelGrid  id="grid" columns="4" cellpadding="5">
+
+                    <f:facet name="header">
+                        are you sure you want to delete this Row ? 
+                    </f:facet>
+
+                    <h:outputLabel for="Nom" class="control-label col-sm-2">GSM</h:outputLabel>
+                    <h:outputLabel id="gsm-id" value="#{DetailsListGsmEdit.gsm}" class="form-control" />
+
+
+
+                    <p:panelGrid   style="display:#{adminBean.ifParam()};" columns="2" cellpadding="5" >
+
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY1</h:outputLabel>
+                        <h:outputLabel id="key1-id" value="#{DetailsListGsmEdit.key1}" class="form-control" />
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY2</h:outputLabel>
+                        <h:outputLabel id="key2-id" value="#{DetailsListGsmEdit.key2}" class="form-control" />
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY3</h:outputLabel>
+                        <h:outputLabel id="key3-id" value="#{DetailsListGsmEdit.key3}" class="form-control" />
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY4</h:outputLabel>
+                        <h:outputLabel id="key4-id" value="#{DetailsListGsmEdit.key4}" class="form-control" />
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY5</h:outputLabel>
+                        <h:outputLabel id="key5-id" value="#{DetailsListGsmEdit.key5}" class="form-control" />
+
+
+                        <h:outputLabel for="Nom" class="control-label col-sm-2">KEY6</h:outputLabel>
+                        <h:outputLabel id="key6-id" value="#{DetailsListGsmEdit.key6}" class="form-control" />
+
+
+                    </p:panelGrid>
+
+
+
+
+
+
+                    <f:facet name="footer"> 
+                        <object align="right" >
+                            <h:commandButton value="Delete" action="#{DetailsListGsmEdit.deleteGSMListDetails(DetailsListGsmEdit)}" class="btn btn-primary updateBtnStyle" />
+
+
+                        </object>
+                    </f:facet>
+
+                </p:panelGrid>
+
+
+            </p:dialog>
+        </h:form>
+
+
+        <h:form id="BlackList-id">  
+            <p:dialog id="createBlackListDetail"  closable="false" visible="#{dialogFormBG.submitted and facesContext.validationFailed}" widgetVar="CreateBlackListDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="400" height="150">
+
+
+                <h:form  binding="#{dialogFormBK}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Black List
+                            </f:facet>
+
+
+                            <h:outputLabel for="gsmblacklist" >GSM </h:outputLabel>
+                            <p:inputMask id="gsmblacklist-id" value="#{adminBean.gsmblacklist}" mask="99-999-999" class="form-control" validatorMessage="le GSM ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>    
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Add" action="#{adminBean.saveGSMDetails(adminBean)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="BlackList-id" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+        <h:form>  
+            <p:dialog id="createGSMListDetail" header="ADD Details" widgetVar="createGSMListDetail" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="400" height="250">
+                <br></br>
+
+                <h:outputLabel for="gsm" class="control-label col-sm-4">GSM</h:outputLabel>
+                <h:inputText id="gsm-id" value="#{ONEGSMListSave.gsm}" class="form-control"   validatorMessage="SOLDE is required" >
+                    <f:validateRequired/>
+                </h:inputText>
+
+
+                <h:outputLabel for="key1" class="control-label col-sm-4">KEY1</h:outputLabel>
+                <br></br>
+                <h:inputText id="key1-id" value="#{ONEGSMListSave.key1}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:outputLabel for="key2" class="control-label col-sm-4">KEY2</h:outputLabel>
+                <br></br>
+                <h:inputText id="key2-id" value="#{ONEGSMListSave.key2}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:outputLabel for="key3" class="control-label col-sm-4">KEY3</h:outputLabel>
+                <br></br>
+                <h:inputText id="key3-id" value="#{ONEGSMListSave.key3}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:outputLabel for="key4" class="control-label col-sm-4">KEY4</h:outputLabel>
+                <br></br>
+                <h:inputText id="key4-id" value="#{ONEGSMListSave.key4}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:outputLabel for="key5" class="control-label col-sm-4">KEY5</h:outputLabel>
+                <br></br>
+                <h:inputText id="key5-id" value="#{ONEGSMListSave.key5}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:outputLabel for="key6" class="control-label col-sm-4">KEY6</h:outputLabel>
+                <br></br>
+                <h:inputText id="key6-id" value="#{ONEGSMListSave.key6}" class="form-control" validatorMessage="SOLDE is required">
+                    <f:validateRequired/>
+                </h:inputText>
+
+                <br></br>
+                <h:commandButton value="Add" action="#{ONEGSMListSave.saveListGSMDetails(ONEGSMListSave)}" class="btn btn-primary updateBtnStyle" />
+
+            </p:dialog>
+
+
+        </h:form>
+
+        <h:form  id="ListTable-ed" enctype="multipart/form-data">
+            <p:dialog id="ListTable"   widgetVar="detailslistDialog" modal="false" closable="false" visible="#{dialogForm8.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false" >
+
+                <p:dataTable id="ListTa"  value="#{adminBean.DetailsListGsm(DisplayListGsm.idList)}"  var="detailgsm"    
+                             style="width:1000px;" 
+                             widgetVar="ListTaWidget"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             class="table table-striped table-hover table-bordered tableUpdated"
+                             >
+
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Details List GSM &#160;&#160; #{DisplayListGsm.idList}" style="float:left"/>
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('ListTaWidget').filter()"
+                                         style="width:150px; height: 25px" placeholder="Search text"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column id="c1" filterBy="#{detailgsm.gsm}" filterMatchMode="contains"  styleClass="watermark1"  >
+                        <p:watermark for="@(.watermark1)" value="GSM" />
+                        <h:outputText id="gsm" value="#{detailgsm.gsm}" />
+                    </p:column>
+
+                    <p:column id="c2" filterBy="#{detailgsm.key1}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark2"  >
+                        <p:watermark for="@(.watermark2)" value="Key1" />
+                        <h:outputText id="key1" value="#{detailgsm.key1}" />
+
+                    </p:column>
+                    <p:column id="c3" filterBy="#{detailgsm.key2}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark3"  >
+                        <p:watermark for="@(.watermark3)" value="Key2" />
+                        <h:outputText id="key2" value="#{detailgsm.key2}" />
+                    </p:column>
+                    <p:column id="c4" filterBy="#{detailgsm.key3}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark4"  >
+                        <p:watermark for="@(.watermark4)" value="Key3" />
+                        <h:outputText id="key3" value="#{detailgsm.key3}" />
+                    </p:column>
+
+                    <p:column id="c5" filterBy="#{detailgsm.key4}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark5"  >
+                        <p:watermark for="@(.watermark5)" value="Key4" />
+                        <h:outputText id="key4" value="#{detailgsm.key4}" />
+                    </p:column>
+
+                    <p:column id="c6" filterBy="#{detailgsm.key5}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark6"  >
+                        <p:watermark for="@(.watermark6)" value="Key5" />
+                        <h:outputText id="key5" value="#{detailgsm.key5}" />
+                    </p:column>
+
+
+                    <p:column id="c7" filterBy="#{detailgsm.key6}"  style="display:#{adminBean.ifParam()};" filterMatchMode="contains"  styleClass="watermark7"  >
+                        <p:watermark for="@(.watermark7)" value="Key5" />
+                        <h:outputText id="key6" value="#{detailgsm.key6}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Update</f:facet>
+                        <h:commandButton action="#{detailgsm.editDetailListGsm(detailgsm.idDetailListGsm)}" value="Update" class="btn btn-primary" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Delete</f:facet>
+                        <h:commandButton action="#{detailgsm.deleteDetListGsm(detailgsm.idDetailListGsm)}" value="Delete" class="btn btn-primary" />
+                    </p:column>
+                </p:dataTable>
+
+
+
+                <h:form  binding="#{dialogForm8}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <p:panelGrid  id="grid" columns="4" cellpadding="5">
+
+                        <h:inputFile  value="#{adminBean.uploadedFile}" class="form-control"  />
+
+                        <h:commandButton  value="Importer " action="#{adminBean.saveListGSM(DisplayListGsm.idList)}" class="btn btn-primary"  >  
+                        </h:commandButton> 
+                        <h:commandButton action="#{adminBean.saveOneGsmList(DisplayListGsm.idList)}" value="Ajouter Manuellement" class="btn btn-primary" />
+
+
+                        <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                            <p:ajax update="ListTable-ed" resetValues="true" />
+                        </h:commandButton>
+
+
+                    </p:panelGrid>
+
+
+
+                </h:form>
+
+            </p:dialog>
+
+        </h:form>
+
+
+        <h:form>
+            <p:dialog id="ListeDetail"  widgetVar="listDialog"   modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+                <p:dataTable id="ListTable"  value="#{adminBean.ListGsm()}"  var="gsm" 
+                             style="width:450px;" 
+                             widgetVar="ListeDetailWidget"
+                             rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             class="table table-striped table-hover table-bordered tableUpdated"
+                             >
+
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="List GSM" style="float:left"/>
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('ListeDetailWidget').filter()"
+                                         style="width:150px; height: 25px" placeholder="Search text"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column id="c1" filterBy="#{gsm.nomListe}" filterMatchMode="contains"  styleClass="watermark1"  >
+                        <p:watermark for="@(.watermark1)" value="Nom Liste" />
+
+                        <h:outputText id="nomList" value="#{gsm.nomListe}" />
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Details LIST GSM</f:facet>
+                        <h:commandButton action="#{adminBean.displaybuttonGsm(gsm.idListeGsm)}" value="Display" class="btn btn-primary" />
+                    </p:column>   
+
+                </p:dataTable>
+
+
+
+            </p:dialog>
+        </h:form>
+
+
+        <h:form id="ed-form">
+
+            <p:dialog id="editProUser" widgetVar="editProUserDialog" modal="true"  closable="false" visible="#{dialogForm2.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false"  width="380" height="350">
+
+
+                <h:form  binding="#{dialogForm2}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Modifier votre Profil
+                            </f:facet>
+
+                            <h:outputLabel for="Nom" >NOM</h:outputLabel>
+                            <h:inputText id="Nom-id" value="#{userBeanEdit.nom}" maxlength="30" class="form-control" validatorMessage="le nom doit être de 3 caractères minimum" >
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_name" >CONTACT_NAME</h:outputLabel>
+                            <h:inputText id="Contact_name-id" value="#{userBeanEdit.contactName}" maxlength="30" class="form-control" validatorMessage="le Nom du Contact doit être de 3 caractères minimum " >
+                                <f:validateLength minimum="3" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Contact_gsm" >CONTACT_GSM</h:outputLabel>
+                            <p:inputMask id="Contact_gsm-id" value="#{userBeanEdit.contactGsm}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>    
+
+                            <h:outputLabel for="Login" >LOGIN</h:outputLabel>
+                            <h:inputText id="Login-id" value="#{userBeanEdit.login}" class="form-control"  maxlength="30"  validatorMessage="le Login doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+
+                            <h:outputLabel for="Pwd" >PWD</h:outputLabel>
+                            <h:inputText id="Pwd-id" value="#{userBeanEdit.pwd}"  class="form-control" maxlength="30" validatorMessage="le Mots de Passe doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Update" action="#{userBeanEdit.updateUserProfilDetails(userBeanEdit)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="ed-form" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+        <h:form>
+            <p:dialog id="Listhistcomp"  widgetVar="listhistcompDialog"   modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+                <p:dataTable id="ListTable"  value="#{adminBean.ListCompagne()}"  var="histc" 
+                             style="width:450px;" 
+                             widgetVar="listhistcompWidget"
+                             rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             class="table table-striped table-hover table-bordered tableUpdated"
+                             >
+
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="List Nom Compagne" style="float:left"/>
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('listhistcompWidget').filter()"
+                                         style="width:150px; height: 25px" placeholder="Search text"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column id="c1" filterBy="#{histc.nomCompagneDiffusion}" filterMatchMode="contains"  styleClass="watermark1"  >
+                        <p:watermark for="@(.watermark1)" value="Nom Compagne" />
+
+                        <h:outputText id="nomCompagneDiffusion" value="#{histc.nomCompagneDiffusion}" />
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header"> Historique</f:facet>
+
+
+                        <h:commandButton action="#{adminBean.displaybuttonHistComp(histc.idDiffusion)}" value="Display" class="btn btn-primary" />
+                    </p:column>   
+
+                </p:dataTable>
+
+            </p:dialog>
+        </h:form>
+
+        <h:form>
+            <p:dialog id="ListhistcompPie"  widgetVar="ListhistcompPieDialog"   modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+                <p:dataTable id="ListPieTable"  value="#{adminBean.ListCompagne()}"  var="histc" 
+                             style="width:450px;" 
+                             widgetVar="ListhistcompPieDialog"
+                             rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             class="table table-striped table-hover table-bordered tableUpdated"
+                             >
+
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="List Nom Compagne" style="float:left"/>
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('listhistcompWidget').filter()"
+                                         style="width:150px; height: 25px" placeholder="Search text"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column id="c1" filterBy="#{histc.nomCompagneDiffusion}" filterMatchMode="contains"  styleClass="watermark1"  >
+                        <p:watermark for="@(.watermark1)" value="Nom Compagne" />
+
+                        <h:outputText id="nomCompagneDiffusion" value="#{histc.nomCompagneDiffusion}" />
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header"> Historique</f:facet>
+                        <h:commandButton action="#{adminBean.PieModel(histc.idDiffusion)}" value="Display" class="btn btn-primary" />
+                    </p:column>   
+
+                </p:dataTable>
+
+            </p:dialog>
+        </h:form>
+
+
+
+        <h:form  id="ListTableHist-ed" enctype="multipart/form-data">
+            <p:dialog id="ListTableHist"   widgetVar="detailslistHistcompDialog" modal="false" closable="true" visible="#{dialogForm12.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false" >
+
+                <p:panelGrid  id="grid8" columns="2" cellpadding="5" style="width:1000px;" >
+                    <f:facet name="header">
+                        Rapport
+                    </f:facet>
+
+                    <p:row>
+                        <p:outputLabel value="Nom Compagne:" />
+                        #{adminBean.GetNomCompagne(DisplayListHistComp.idDiffusion)}
+                    </p:row>
+                    <p:row>
+                        <h:commandButton  id="xls" ajax="false"  update="growl"  image="video/xl.png" style="width:30px;height:30px" >
+                            <f:setPropertyActionListener value="true" target="#{exporterController.customExporter}" />  
+                            <pe:exporter type="xlsx" target="ListTaHist" fileName="hist" /> 
+                        </h:commandButton>
+                    </p:row>
+                </p:panelGrid>
+                <p:panelGrid  id="grid10" columns="1" cellpadding="5" style="width:1000px;" >
+
+                    <p:dataTable id="ListTaHist"  value="#{adminBean.DetailsListCompagne(DisplayListHistComp.idDiffusion)}"  var="detailhist"    
+                                 style="width:1000px;" 
+                                 widgetVar="ListHistTaWidget"
+                                 rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 class="table table-striped table-hover table-bordered tableUpdated"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="List Hiatorique Compagne" style="float:left"/>
+                                <p:inputText id="globalFilter"
+                                             onkeyup="PF('ListHistTaWidget').filter()"
+                                             style="width:150px; height: 25px" placeholder="Search text"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column filterBy="#{detailhist.gsm}"  headerText="GSM" footerText="contains" filterMatchMode="contains">
+                            <h:outputText id="gsm" value="#{detailhist.gsm}" />
+                        </p:column>
+
+                        <p:column filterBy="#{detailhist.message}"  headerText="Message" footerText="contains" filterMatchMode="contains">
+                            <h:outputText id="message" value="#{detailhist.message}" />
+                        </p:column>
+                        <p:column filterBy="#{detailhist.status}"  headerText="Status" footerText="contains" filterMatchMode="contains">
+                            <h:outputText id="Status" value="#{detailhist.status}" />
+                        </p:column>
+                    </p:dataTable>    
+
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+        <h:form>
+            <p:dialog id="ListhistcompAPI"  widgetVar="listhistcompDialogAPI"   modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:panelGrid  id="grid20" columns="3" cellpadding="5" style="width:250px;" >
+                    <f:facet name="header">
+                        Rapport
+                    </f:facet>
+
+                    <p:row>
+                        <p:outputLabel for="datetimedebut" value="Date Debut:" />
+                        <p:calendar id="datetimedebut" value="#{adminBean.datetimedebut}" pattern="MM/dd/yyyy HH:mm:ss" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </p:calendar>
+                    </p:row>
+                    <p:row>
+                        <p:outputLabel for="datetimfin" value="Date Fin:" />
+                        <p:calendar id="datetimfin" value="#{adminBean.datetimfin}" pattern="MM/dd/yyyy HH:mm:ss" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </p:calendar>
+                    </p:row>
+                    <p:row>
+                        <h:commandButton action="#{adminBean.displaybuttonHistCompAPI(adminBean)}" value="Display" class="btn btn-primary" />
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+
+        <h:form>
+            <p:dialog id="ListhistcompChartAPI"  widgetVar="ListhistcompChartDialogAPI"   modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:panelGrid  id="grid20" columns="3" cellpadding="5" style="width:250px;" >
+                    <f:facet name="header">
+                        Dashbord
+                    </f:facet>
+
+                    <p:row>
+                        <p:outputLabel for="datetimedebut" value="Date Debut:" />
+                        <p:calendar id="datetimedebut" value="#{adminBean.datetimedebut}" pattern="MM/dd/yyyy HH:mm:ss" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </p:calendar>
+                    </p:row>
+                    <p:row>
+                        <p:outputLabel for="datetimfin" value="Date Fin:" />
+                        <p:calendar id="datetimfin" value="#{adminBean.datetimfin}" pattern="MM/dd/yyyy HH:mm:ss" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </p:calendar>
+                    </p:row>
+                    <p:row>
+                        <h:commandButton action="#{adminBean.APIDashbord(adminBean)}" value="Display" class="btn btn-primary" />
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+
+
+        <h:form  id="ListTableHistAPI-ed" enctype="multipart/form-data">
+            <p:dialog id="ListTableHistAPI"   widgetVar="detailslistHistcompAPIDialog" modal="false" closable="true" visible="#{dialogForm8.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false" >
+
+                <h:commandButton  id="xls" ajax="false"  update="growl"  image="video/xl.png" style="width:30px;height:30px" >
+                    <f:setPropertyActionListener value="true" target="#{exporterController.customExporter}" />  
+                    <pe:exporter type="xlsx" target="ListTaHistAPI" fileName="hist" /> 
+                </h:commandButton>
+                <p:dataTable id="ListTaHistAPI"  value="#{adminBean.DetailsListCompagneAPI(DisplayListHistCompAPI.idHistDiffusion)}"  var="detailhist"    
+                             style="width:1000px;" 
+                             widgetVar="ListHistTaAPIWidget"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             class="table table-striped table-hover table-bordered tableUpdated"
+                             >
+
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="List Hiatorique Compagne" style="float:left"/>
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('ListHistTaAPIWidget').filter()"
+                                         style="width:150px; height: 25px" placeholder="Search text"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column filterBy="#{detailhist.gsm}"  headerText="GSM" footerText="contains" filterMatchMode="contains">
+                        <h:outputText id="gsm" value="#{detailhist.gsm}" />
+                    </p:column>
+
+                    <p:column filterBy="#{detailhist.message}"  headerText="Message" footerText="contains" filterMatchMode="contains">
+                        <h:outputText id="message" value="#{detailhist.message}" />
+                    </p:column>
+                    <p:column filterBy="#{detailhist.status}"  headerText="Status" footerText="contains" filterMatchMode="contains">
+                        <h:outputText id="Status" value="#{detailhist.status}" />
+                    </p:column>
+                </p:dataTable>    
+            </p:dialog>
+        </h:form>
+
+
+
+
+
+
+
+    </h:body>
+</html>

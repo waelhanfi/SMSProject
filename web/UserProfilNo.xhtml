@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+
+
+
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            } 
+
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome  : #{login.login} 
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('a#faq').click(function () {
+                    $('div#hidden').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <script>
+            $(function () {
+                $('a#faq1').click(function () {
+                    $('div#hiddenn').toggle();
+                    return false;
+                });
+            });
+
+        </script>
+
+        <h:form id="ProfilForm" class="main">
+
+
+
+
+            <p:carousel value="#{adminBean.userProfilNo()}"  var="user" itemStyle="height:200px;text-align:left" numVisible="1" easing="easeOutBounce" style="width:100%" >
+
+
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="#" id="faq"><i class="fa fa-user"></i><span>My Account</span></a>
+                            <div id="hidden" style="display:none">
+                                <ol>
+                                    <li><a href="UserProfilNo.xhtml"><i class="fa fa-user"></i><span>My Profile</span></a></li>
+                                    <li><a onclick="PF('histDialog').show()"><i class="fa fa-exchange"></i><span>Historique Alimentation</span></a></li>
+                                    <li><a onclick="PF('entetDialog').show()"><i class="fa fa-exchange"></i><span>Show Me Entet</span></a></li>
+                                    <li><a href="#{adminBean.editProfilUserNo(user.idUtilisateur)}"><i class="fa fa-plus"></i><span>Update</span></a></li>
+                                </ol>
+                            </div>
+                        </li>
+                        <li><a href="#" id="faq1"><i class="fa fa-comments-o"></i><span>My Messages</span></a>
+                            <div id="hiddenn" style="display:none">
+                                <ol>
+                                    <li><a href="CreateMSGUser.xhtml"><i class="fa fa-pencil"></i><span>Add Messages</span></a></li>
+                                    <li><a onclick="PF('msgDialog').show()"><i class="fa fa-plus"></i><span>Display Messages</span></a></li>
+
+                                </ol>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <br></br>
+
+                <h:panelGrid columns="2"  columnClasses="label,value">     
+
+
+
+
+                    <h:outputText value="NOM" style="color: black"/>             
+                    <h:outputText value="#{user.nom}"  />
+
+                    <h:outputText value="CONTACT_NAME" style="color: black"/>
+                    <h:outputText value="#{user.contactName}" />
+
+                    <h:outputText value="CONTACT_GSM" style="color: black"/>
+                    <h:outputText value="#{user.contactGsm}" />
+
+                    <h:outputText value="DATE CREATION" style="color: black"/>             
+                    <h:outputText value="#{user.dateCreation}" />
+
+                    <h:outputText value="SOLDE" style="color: black"/> 
+                    <h:outputText value="#{user.solde}" />
+                </h:panelGrid>
+
+
+
+
+
+
+                <p:dialog id="EntetDetail" header="ENTET" widgetVar="entetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  width="250" height="200">
+
+                    <h:outputText value="#{user.entete}" />
+                </p:dialog>
+
+
+
+
+
+                <f:facet name="header">Historique Alimentation</f:facet>
+                <p:dialog id="histDetail" header="Historique Alimentation" widgetVar="histDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="900" height="350">
+
+                    <p:dataTable id="HistTable"  value="#{adminBean.HistoriqueList(user.idUtilisateur)}"  var="hist"    class="table table-striped table-hover table-bordered tableUpdated" >
+
+                        <p:column  >
+                            <f:facet name="header">SOLDE INITIAL</f:facet>
+                            <h:outputText value="#{hist.soldeInitial}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">SOLDE FINAL</f:facet>
+                            <h:outputText value="#{hist.soldeFinal}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">DATE ALIMENTATION</f:facet>
+                            <h:outputText value="#{hist.dateAlimentation}" />
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+                <p:dialog id="msgDetail" header="List Messages" widgetVar="msgDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="900" height="350">
+                    <p:dataTable id="MsgEnteteTable"  value="#{adminBean.ListMessages(user.idUtilisateur)}"  var="msg"    class="table table-striped table-hover table-bordered tableUpdated" >
+
+                        <p:column  >
+                            <f:facet name="header">NOM_MESSAGE</f:facet>
+                            <h:outputText value="#{msg.nomMessage}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">MESSAGE</f:facet>
+                            <h:outputText value="#{msg.message}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">DATE_CREATION_MESSAGE</f:facet>
+                            <h:outputText value="#{msg.dateCreationMessage}" />
+                        </p:column>
+                        <p:column  >
+                            <f:facet name="header">LONGEUR</f:facet>
+                            <h:outputText value="#{msg.longeur}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">NMBRE_SMS</f:facet>
+                            <h:outputText value="#{msg.nmbreSms}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:dialog>
+
+
+
+
+
+
+
+
+
+
+            </p:carousel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />     
+        <title>JSF CRUD Example</title>
+
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            }
+
+
+            .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {
+                margin: 1px;
+                padding: 5px 0px 5px 0px; 
+            }
+            .ui-messages-info-icon, .ui-messages-warn-icon, .ui-messages-error-icon, .ui-messages-fatal-icon, .ui-message-info-icon, .ui-message-warn-icon, .ui-message-error-icon, .ui-message-fatal-icon {
+                background: none;	
+            }
+            .ui-messages-info-summary, .ui-messages-warn-summary, .ui-messages-error-summary, .ui-messages-fatal-summary, .ui-message-info-summary, .ui-message-warn-summary, .ui-message-error-summary, .ui-message-fatal-summary {
+                font-family: Verdana;
+                font-size: 11px;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+
+
+        </style>
+    </h:head>
+    <h:body>
+
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Welcome Top Admin : #{login.login} 
+            </div>
+        </div>
+
+
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="ListAdmin.xhtml"><i class="fa fa-users"></i><span>Admin List</span></a></li>
+                <li><a href="ListeSolde.xhtml"><i class="fa fa-exchange"></i><span>Alimentation</span></a></li>
+                <li><a onclick="PF('createAdminDialog').show()"><i class="fa fa-plus"></i><span>Create Admin</span></a></li>
+
+
+            </ul>
+        </div>
+
+
+
+        <h:form id="AdminForm" class="main">
+            <p:dataTable id="AdminTable" binding="#{table}" value="#{adminBean.adminList()}" filteredValue="#{adminBean.filteredSoldeList}"
+                         widgetVar="soldeWidget"  var="admin" 
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all:&#160;&#160;&#160;"/>
+                        <p:inputText id="globalFilter"
+                                     onkeyup="PF('soldeWidget').filter()"
+                                     style="width:150px;height: 25px" placeholder="Search text"/>
+                    </p:outputPanel>
+                </f:facet>
+
+
+
+
+                <p:column headerText="nom" filterBy="#{admin.nom}" filterMatchMode="contains">
+                    <f:facet name="header">NOM</f:facet>
+                    <h:outputText value="#{admin.nom}" />
+                </p:column>
+
+                <p:column headerText="solde" filterBy="#{admin.solde}" filterMatchMode="contains">
+                    <f:facet name="header">SOLDE</f:facet>
+                    <h:outputText value="#{admin.solde}" />
+                </p:column>
+
+                <p:column >
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandButton action="#{adminBean.Alimentation(admin.idUtilisateur)}" value="Update" class="btn btn-primary" />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <h:form id="aliment-form">
+            <p:dialog id="alimentAdmin" widgetVar="alimentAdminDialog" modal="true"  closable="false" visible="#{dialogForm2.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false"  width="300" height="130">
+                <h:form  binding="#{dialogForm2}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+                            <f:facet name="header">
+                                Alimenter Solde
+                            </f:facet>
+
+                            <h:outputLabel for="Solde">Alimenter Solde</h:outputLabel>
+                            <p:inputNumber id="soldeFinal-id"  value="#{adminBeanSolde.soldeFinal}"  padControl="false"  validatorMessage="le Solde  ne doit pas être vide">
+                                <f:validateRequired/>
+                            </p:inputNumber>
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Update" action="#{adminBeanSolde.updateSold(adminBeanSolde)}" class="btn btn-primary updateBtnStyle" />
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="aliment-form" resetValues="true" />
+                                    </h:commandButton>
+                                </object>
+                            </f:facet>
+
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+        <h:form id="ad-form">
+
+            <p:dialog id="createAdmin" widgetVar="createAdminDialog" modal="true"  closable="false" visible="#{dialogForm1.submitted and facesContext.validationFailed}" showEffect="fade" hideEffect="fade" resizable="false"  width="380" height="350">
+
+
+                <h:form  binding="#{dialogForm1}">
+                    <p:messages id="messages"  closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    <center>
+                        <p:panelGrid  id="grid" columns="2" cellpadding="5">
+
+                            <f:facet name="header">
+                                Créer un admin
+                            </f:facet>
+
+
+                            <h:outputLabel for="Nom" >Nom :</h:outputLabel>
+                            <p:inputText id="Nom-id" value="#{adminBean.nom}" maxlength="30" class="form-control" validatorMessage="le nom doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </p:inputText>
+
+
+
+
+                            <h:outputLabel for="Contact_name" >Nom du Contact :</h:outputLabel>         
+                            <p:inputText id="Contact_name-id" value="#{adminBean.contactName}" maxlength="30" class="form-control" validatorMessage="le Nom du Contact doit être de 3 caractères minimum ">
+                                <f:validateLength minimum="3" />
+                            </p:inputText>
+
+
+
+                            <h:outputLabel for="Contact_gsm" >GSM du Contact :</h:outputLabel>
+                            <p:inputMask id="Contact_gsm-id" value="#{adminBean.contactGsm}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                                <f:validateRequired/>
+                            </p:inputMask>    
+
+
+                            <h:outputLabel for="Login" >Login :</h:outputLabel>
+                            <p:inputText id="Login-id" value="#{adminBean.login}" class="form-control"  maxlength="30"  validatorMessage="le Login doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </p:inputText>
+
+
+                            <h:outputLabel for="Pwd">Mot de Passe :</h:outputLabel>
+                            <p:password id="Pwd-id" value="#{adminBean.pwd}" class="form-control" maxlength="30" validatorMessage="le Mots de Passe doit être de 4 caractères minimum">
+                                <f:validateLength minimum="4" />
+                            </p:password>
+
+                            <h:outputLabel for="Solde">Solde :</h:outputLabel>
+                            <p:inputNumber id="Solde-id" value="#{adminBean.solde}"  padControl="false" validatorMessage="le Solde  ne doit pas être vide">
+                                <f:validateRequired/>
+                            </p:inputNumber>
+
+                            <f:facet name="footer"> 
+                                <object align="right" >
+                                    <h:commandButton value="Envoyer" action="#{adminBean.saveAdminDetails(adminBean)}" class="btn btn-primary updateBtnStyle"/>
+                                    &#160;&#160;
+                                    <h:commandButton value="Cancel" class="btn btn-primary updateBtnStyle" >
+                                        <p:ajax update="ad-form" resetValues="true" />
+                                    </h:commandButton>
+
+
+                                </object>
+
+
+
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </center>
+
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+
+    </h:body>
+</html>

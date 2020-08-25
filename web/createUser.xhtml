@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+            xmlns:p="http://primefaces.org/ui">>
+
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'/>
+        <h:outputStylesheet library="css" name="style1.css" /> 
+        <style type="text/css">
+            .ui-datatable-header{
+                border: 1px #2196F3 solid;
+                background: #2196F3;
+                height: 35px;
+                text-shadow: none;
+                color: white;
+                text-align: right !important;
+            }
+
+            .value {
+                font-weight: bold;
+            } 
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+
+            .top-aligned-columns td{
+                horizontal-align: top;
+            }
+        </style>
+    </h:head>
+    <h:body>
+
+        <div class="header">
+            <a href="#" id="menu-action">
+                <i class="fa fa-bars"></i>
+                <span>Close</span>
+            </a>
+            <div class="logo">
+                Bienvenue  : #{login.login}   / Créer un compte d'utilisateur
+            </div>
+        </div>
+
+
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="ListUser.xhtml"><i class="fa fa-users"></i><span>User List</span></a></li>
+                <li><a href="ListSoldeUser.xhtml"><i class="fa fa-exchange"></i><span>Alimentation</span></a></li>
+                <li><a href="createUser.xhtml"><i class="fa fa-plus"></i><span>Create User</span></a></li>
+
+            </ul>
+        </div>
+
+
+        <h:form id="createAdminForm" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <br></br><br></br>
+                </div>
+            </div>
+            <hr/>
+
+
+            <div class="form-group">
+
+
+                <h:outputLabel for="Nom" class="control-label col-sm-2">Nom :</h:outputLabel>
+                <h:panelGrid id="grid" columns="3" cellpadding="1">
+                    <h:inputText id="Nom-id" value="#{adminBean.nom}" maxlength="30" class="form-control" validatorMessage="le nom doit être de 3 caractères minimum ">
+                        <f:validateLength minimum="3" />
+                    </h:inputText>
+                    <p:message for="Nom-id" />
+                </h:panelGrid>
+            </div>
+            
+
+            <div class="form-group">
+
+                <h:outputLabel for="Contact_name" class="control-label col-sm-2">Nom du Contact:</h:outputLabel>
+
+                <h:panelGrid id="grid1" columns="3" cellpadding="1">
+                    <h:inputText id="Contact_name-id" value="#{adminBean.contactName}" maxlength="30" class="form-control" validatorMessage="le Nom du Contact doit être de 3 caractères minimum ">
+                        <f:validateLength minimum="3" />
+                    </h:inputText>
+                    <p:message for="Contact_name-id" />
+                </h:panelGrid>
+            </div>
+
+                        <div class="form-group">
+                <h:outputLabel for="Contact_gsm" class="control-label col-sm-2">GSM du Contact:</h:outputLabel>
+
+                <h:panelGrid id="grid2" columns="3" cellpadding="1">
+                    <p:inputMask id="Contact_gsm-id" value="#{adminBean.contactGsm}" mask="99-999-999" class="form-control" validatorMessage="le GSM du Contact ne doit pas être vide ">
+                        <f:validateRequired/>
+                    </p:inputMask>    
+                    <p:message for="Contact_gsm-id" />
+                </h:panelGrid>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel for="Login" class="control-label col-sm-2">Login</h:outputLabel>
+
+                <h:panelGrid id="grid3" columns="3" cellpadding="1">
+                    <h:inputText id="Login-id" value="#{adminBean.login}" class="form-control"  maxlength="30"  validatorMessage="le Login doit être de 4 caractères minimum">
+                        <f:validateLength minimum="4" />
+                    </h:inputText>
+                    <p:message for="Login-id" /> </h:panelGrid>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel for="Pwd" class="control-label col-sm-2">Mots de Passe</h:outputLabel>
+
+                <h:panelGrid id="grid4" columns="3" cellpadding="1">
+                    <h:inputSecret id="Pwd-id" value="#{adminBean.pwd}" class="form-control" maxlength="30" validatorMessage="le Mots de Passe doit être de 4 caractères minimum">
+                        <f:validateLength minimum="4" />
+                    </h:inputSecret>
+                    <p:message for="Pwd-id" /> </h:panelGrid>
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <h:outputLabel for="Solde" class="control-label col-sm-2">Solde</h:outputLabel>
+
+                <h:panelGrid id="grid5" columns="3" cellpadding="1">
+                    <p:inputNumber id="Solde-id" value="#{adminBean.solde}"  padControl="false" validatorMessage="le Solde  ne doit pas être vide">
+                        <f:validateRequired/>
+                    </p:inputNumber>
+                    <p:message for="Solde-id" /> </h:panelGrid>
+            </div>
+
+
+            <div class="form-group">
+                <h:outputLabel for="entete" class="control-label col-sm-2">ENTET</h:outputLabel>
+                 <h:panelGrid id="grid6" columns="3" cellpadding="1">
+                    <h:inputText id="entete-id" value="#{adminBean.entete}" class="form-control" validatorMessage="le entet doit être de 4 caractères minimum et 11 maximum">
+                        <f:validateLength minimum="4" maximum = "11" />
+                    </h:inputText>
+                <p:message for="entete-id" /> </h:panelGrid>
+            </div>
+
+
+            <div class="form-group">
+                <h:outputLabel for="entete" class="control-label col-sm-2">OPTION:</h:outputLabel>
+                <br></br>
+
+                <h:panelGrid columns="2" styleClass="top-aligned-columns" cellpadding="5"  cellspacing="5">  
+
+                    <h:outputLabel for="AR">AR:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{adminBean.ar}" itemLabel="AR"/>
+
+                    <h:outputLabel for="modifEntet">Modif Entet:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{adminBean.modifEntet}" itemLabel="modifEntet"/>
+
+
+                    <h:outputLabel for="listParam" >List Param:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{adminBean.listParam}" itemLabel="listParam"/>
+
+                    <h:outputLabel for="diffPlanifier" >Diff Planifier:</h:outputLabel>
+                    <h:selectBooleanCheckbox value="#{adminBean.diffPlanifier}" itemLabel="diffPlanifier"/>
+
+                </h:panelGrid>
+
+
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                        <h:commandButton value="Envoyer" action="#{adminBean.saveUserDetails(adminBean)}" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
